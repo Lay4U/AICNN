@@ -27,6 +27,9 @@ def load_data(target_class=[3, 5], rescale=True, to_gray=True, use_validation=Fa
     x_train, y_train = pre_processing(x_train, y_train)
     x_test, y_test = pre_processing(x_test, y_test)
 
+    x_train = x_train.astype(np.float64)
+    x_test = x_test.astype(np.float64)
+
     # data normalization
     #mean = np.mean(x_train, axis=(0, 1, 2, 3))
     #std = np.std(x_train, axis=(0, 1, 2, 3))

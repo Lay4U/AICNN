@@ -12,12 +12,20 @@ from sklearn.metrics import confusion_matrix, log_loss
 import numpy as np
 from util import load_data, draw_result, n2c
 import time
+import tensorflow as tf
 
+config = tf.ConfigProto()
+
+config.gpu_options.allow_growth = True
+
+session = tf.Session(config=config)
+
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 seed(0)
 random.seed(1)
 set_random_seed(2)
 os.environ['PYTHONHASHSEED'] = '0'
-
+f = open("result.txt", 'w')
 
 class ModelMgr():
     def __init__(self, target_class=[3, 5], use_validation=True):
@@ -51,8 +59,8 @@ class ModelMgr():
                       loss='categorical_crossentropy',
                       metrics=['accuracy'])
 
-        if hp['epochs'] > 20:  # epochs은 최대 20로 설정 !!
-            hp['epochs'] = 20
+        #if hp['epochs'] > 20:  # epochs은 최대 20로 설정 !!
+            #hp['epochs'] = 20
         if self.use_validation:
             validation_data = (self.x_val, self.y_val)
         else:
@@ -76,16 +84,39 @@ class ModelMgr():
         '''
         (1) 파라미터 값들을 수정해주세요
        '''
-        hyper['batch_size'] = 16  # 배치 사이즈
-        hyper['epochs'] = 10  # epochs은 최대 20 설정 !!
-        hyper['learning_rate'] = 0.1  # 학습률
+        hyper['batch_size'] = 32  # 배치 사이즈
+        hyper['epochs'] = 20  # epochs은 최대 20 설정 !!
+        hyper['learning_rate'] = 0.01  # 학습률
         # 최적화 알고리즘 선택 [sgd, rmsprop, adagrad, adam 등]
-        hyper['optimizer'] = optimizers.sgd(lr=hyper['learning_rate'])  # default: SGD
+        # hyper['optimizer'] = optimizers.sgd(lr=hyper['learning_rate'])  # default: SGD
+        #hyper['optimizer'] = optimizers.rmsprop(lr=0.0001, decay=1e-6)
+        hyper['optimizer'] = optimizers.adam()
+        result = 'batch_size: {}\nepochs: {}\nlearning_rage: {}\noptimizer: {}\n'.format(hyper['batch_size'], hyper['epochs'],\
+                                                                                         hyper['learning_rate'], hyper['optimizer'])
+        f.write(result)
         ############################
         return hyper
 
     def get_model(self):
         model = Sequential()
+        model.add(Conv2D(32, (3, 3), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        model.add(Conv2D(32, (3, 3), activation='relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Dropout(0.25))
+
+        model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
+        model.add(Conv2D(64, (3, 3), activation='relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Dropout(0.25))
+
+        model.add(Flatten())
+        model.add(Dense(512, activation='relu'))
+        model.add(Dropout(0.5))
+        model.add(Dense(len(self.target_class)))
+        model.add(Activation('softmax'))
+
+
+        # model = Sequential()
         ################
         '''
         (2) 모델 코드를 완성해주세요.
@@ -101,18 +132,18 @@ class ModelMgr():
             메모리 부족에 의한 오류임.
             batch_size를 줄이거나, 모델 구조의 파라미터(ex. 유닛수)를 줄여야함
         4. BatchNormalization() 사용 금지
-            
+
         기타 문의 : sdh9446@gmail.com (수업조교)
         '''
         return model
 
     def get_model_sample_1(self):
         # Fully-connected layer만을 이용한 모델
-        model = Sequential() # 모델 정의
+        model = Sequential()  # 모델 정의
         # Flatten 함수는 다차원 배열을 벡터로 만듦. ex) (32, 32, 1) -> (1024)
-        model.add(Flatten(input_shape=self.x_train.shape[1:])) # 초기 레이어에는 input_shape 명시
+        model.add(Flatten(input_shape=self.x_train.shape[1:]))  # 초기 레이어에는 input_shape 명시
         model.add(Dense(64))  # fully-connected layer, 64은 히든유닛 개수
-        model.add(Activation('sigmoid')) # 활성화 함수 정의 ['sigmoid', 'tanh', relu' 등]
+        model.add(Activation('sigmoid'))  # 활성화 함수 정의 ['sigmoid', 'tanh', relu' 등]
         model.add(Dropout(0.5))  # 이전 output에서 0.5 비율로 랜덤 선택하여 사용. (없어도 무방)
         model.add(Dense(64))
         model.add(Activation('sigmoid'))
@@ -158,13 +189,19 @@ class ModelMgr():
         print('\n===== TEST RESULTS ====')
         print('Test loss:', str(loss)[:6])
         print('Test Accuracy:')
-        print('\tTotal: {}%'.format(str(acc_per_class.mean()*100)[:5]))
+        print('\tTotal: {}%'.format(str(acc_per_class.mean() * 100)[:5]))
         for idx, label in n2c.items():
             print('\t{}: {}%'.format(label, str(acc_per_class[idx] * 100)[:5]))
-        print('Test FPS:', str(1/((end-start)/len(self.x_test)))[:6])
+        print('Test FPS:', str(1 / ((end - start) / len(self.x_test)))[:6])
         print('=======================')
         if hasattr(self, 'history'):
             self.history.history['test_acc'] = acc_per_class.mean()
+
+
+        #model_path = './trained_model.h5'
+        result='Test loss: {}\nTotal: {}\n'.format(str(loss), str(acc_per_class.mean() * 100)[:5])
+        f.write(result)
+
         return acc_per_class.mean()
 
     def save_model(self, model_path='./trained_model.h5'):
@@ -182,7 +219,7 @@ class ModelMgr():
 
 if __name__ == '__main__':
     trained_model = None
-    #trained_model = './trained_model.h5'  # 학습된 모델 테스트 시 사용
+    # trained_model = './trained_model.h5'  # 학습된 모델 테스트 시 사용
 
     modelMgr = ModelMgr()
     if trained_model is None:
@@ -193,3 +230,5 @@ if __name__ == '__main__':
     else:
         modelMgr.load_model(trained_model)
         modelMgr.test()
+
+    f.close()

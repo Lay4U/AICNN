@@ -1,0 +1,6 @@
+batch_size: 32
+epochs: 20
+learning_rage: 0.1
+optimizer: <keras.optimizers.RMSprop object at 0x00000212D58FE908>
+Test loss: 0.5004204840147868
+Total: 75.44
