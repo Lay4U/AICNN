@@ -7,6 +7,7 @@ from keras.utils import to_categorical
 def load_data(target_class=[3, 5], rescale=True, to_gray=True, use_validation=False):
     if to_gray:
         gray = lambda rgb: np.dot(rgb[..., :3], [0.299, 0.587, 0.114])
+		
 
     def pre_processing(x, y):
         keep = np.where(np.isin(y, target_class))
