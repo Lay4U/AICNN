@@ -215,7 +215,8 @@ class ModelMgr():
     def draw_history(self, file_path='./result.png'):
         print('\nvisualize results : \"{}\"'.format(file_path))
         draw_result(self.history.history, self.use_validation, file_path=file_path)
-
+        result='Accuracy: {}\nLoss: {}\n'.format(self.history.history['acc'], self.history.history['loss'])
+        f.write(result)
 
 if __name__ == '__main__':
     trained_model = None
