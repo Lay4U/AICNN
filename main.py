@@ -13,6 +13,9 @@ import numpy as np
 from util import load_data, draw_result, n2c
 import time
 import tensorflow as tf
+import winsound
+duration = 1000  # millisecond
+freq = 440  # Hz
 
 config = tf.ConfigProto()
 
@@ -104,10 +107,12 @@ class ModelMgr():
         model.add(MaxPooling2D(pool_size=(2, 2)))
         model.add(Dropout(0.25))
 
-        model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
-        model.add(Conv2D(64, (3, 3), activation='relu'))
-        model.add(MaxPooling2D(pool_size=(2, 2)))
-        model.add(Dropout(0.25))
+        # model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
+        # model.add(Conv2D(64, (3, 3), activation='relu'))
+        # model.add(MaxPooling2D(pool_size=(2, 2)))
+        # model.add(Dropout(0.25))
+
+
 
         model.add(Flatten())
         model.add(Dense(512, activation='relu'))
@@ -234,3 +239,4 @@ if __name__ == '__main__':
         modelMgr.test()
 
     f.close()
+    winsound.Beep(freq, duration) #코드 실행 끝나면 비프음 나도록
