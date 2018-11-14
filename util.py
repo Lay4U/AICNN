@@ -79,6 +79,7 @@ def draw_result(logs, use_validation, file_path='./result.png'):
             else:
                 title += k + ':' + str(v) + '   '
     title += 'Test_Acc:{}%'.format(str(logs['test_acc']*100)[:5])
+    title += '   Last_Acc:{}%'.format(str(logs['acc'][len(logs['acc'])-1]*100))
     fig.suptitle(title)#, fontsize="x-large")
 
     plt.rcParams['figure.constrained_layout.use'] = True

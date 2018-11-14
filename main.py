@@ -48,7 +48,7 @@ class ModelMgr():
 
         hp = self.get_hyperparameter()  # 파이퍼파라미터 로드
 
-        model.summary()  # 모델 구조 출력
+        temp = model.summary()  # 모델 구조 출력
         print('hyperparameters :')
         print('\tbatch size :', hp['batch_size'])
         print('\tepochs :', hp['epochs'])
@@ -215,8 +215,9 @@ class ModelMgr():
     def draw_history(self, file_path='./result.png'):
         print('\nvisualize results : \"{}\"'.format(file_path))
         draw_result(self.history.history, self.use_validation, file_path=file_path)
-        result='Accuracy: {}\nLoss: {}\n'.format(self.history.history['acc'], self.history.history['loss'])
+        result='\n\nAccuracy: {}\nLoss: {}\n'.format(self.history.history['acc'][len(self.history.history['acc'])-1], self.history.history['loss'][len(self.history.history['loss'])-1])
         f.write(result)
+        print('\nLast Accuracy: {}'.format(self.history.history['acc'][len(self.history.history['acc'])-1]))
 
 if __name__ == '__main__':
     trained_model = None
