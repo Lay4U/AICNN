@@ -122,7 +122,6 @@ class ModelMgr():
         # h_dense_1 = Dense(units=64, activation=ip_activation, kernel_initializer='uniform')
         # cnn.add(h_dense_1)
         model.add(Dense(2048, activation='relu', kernel_initializer='glorot_uniform'))
-        model.add(Dropout(0.25))
         model.add(Dense(1012, activation='relu', kernel_initializer='glorot_uniform'))
         model.add(Dropout(0.25))
         model.add(Dense(len(self.target_class)))
