@@ -104,7 +104,7 @@ class ModelMgr():
         model = Sequential()
         model.add(Conv2D(32, (3, 3), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
         model.add(Conv2D(32, (3, 3), activation='relu'))
-        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(MaxPooling2D(pool_size=(2, 2),strides=(2, 2)))
         model.add(Dropout(0.25))
 
         # model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
@@ -115,8 +115,16 @@ class ModelMgr():
 
 
         model.add(Flatten())
-        model.add(Dense(1024, activation='relu'))
-        model.add(Dropout(0.5))
+        # Now add the Dense layers
+        # h_dense_0 = Dense(units=128, activation=ip_activation, kernel_initializer='uniform')
+        # cnn.add(h_dense_0)
+        # # Let's add one more before proceeding to the output layer
+        # h_dense_1 = Dense(units=64, activation=ip_activation, kernel_initializer='uniform')
+        # cnn.add(h_dense_1)
+        model.add(Dense(2048, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dropout(0.25))
+        model.add(Dense(1012, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dropout(0.25))
         model.add(Dense(len(self.target_class)))
         model.add(Activation('softmax'))
 

@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d7faeda9-03f2-49fb-9dcc-67717d86c82d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/result.png" beforeDir="false" afterPath="$PROJECT_DIR$/result.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/result.txt" beforeDir="false" afterPath="$PROJECT_DIR$/result.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trained_model.h5" beforeDir="false" afterPath="$PROJECT_DIR$/trained_model.h5" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util.py" beforeDir="false" afterPath="$PROJECT_DIR$/util.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="343">
-              <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
+              <caret line="129" selection-start-line="129" selection-end-line="129" />
               <folding>
                 <element signature="e#24#53#0" expanded="true" />
               </folding>
@@ -48,7 +46,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="result.png" pinned="false" current-in-tab="false">
+      <file leaf-file-name="result.png" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/result.png">
           <provider selected="true" editor-type-id="images" />
         </entry>
@@ -144,8 +142,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1928" />
-    <option name="y" value="-8" />
+    <option name="x" value="-1041" />
+    <option name="y" value="59" />
     <option name="width" value="948" />
     <option name="height" value="1047" />
   </component>
@@ -246,7 +244,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16491044" />
@@ -631,18 +629,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/result.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/keras/layers/convolutional.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
           <caret line="458" column="17" selection-start-line="458" selection-start-column="17" selection-end-line="458" selection-end-column="17" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/result.png">
-      <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/keras/layers/core.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -661,15 +653,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/result.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="343">
-          <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
+          <caret line="129" selection-start-line="129" selection-end-line="129" />
           <folding>
             <element signature="e#24#53#0" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/result.png">
+      <provider selected="true" editor-type-id="images" />
     </entry>
   </component>
   <component name="masterDetails">
