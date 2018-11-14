@@ -93,7 +93,7 @@ class ModelMgr():
         # 최적화 알고리즘 선택 [sgd, rmsprop, adagrad, adam 등]
         # hyper['optimizer'] = optimizers.sgd(lr=hyper['learning_rate'])  # default: SGD
         #hyper['optimizer'] = optimizers.rmsprop(lr=0.0001, decay=1e-6)
-        hyper['optimizer'] = optimizers.adam()
+        hyper['optimizer'] = optimizers.adadelta()
         result = 'batch_size: {}\nepochs: {}\nlearning_rage: {}\noptimizer: {}\n'.format(hyper['batch_size'], hyper['epochs'],\
                                                                                          hyper['learning_rate'], hyper['optimizer'])
         f.write(result)
