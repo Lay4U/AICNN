@@ -1,5 +1,3 @@
-# -*- coding:utf-8 -*-
-
 from numpy.random import seed
 import random
 from tensorflow import set_random_seed
@@ -93,7 +91,7 @@ class ModelMgr():
         # 최적화 알고리즘 선택 [sgd, rmsprop, adagrad, adam 등]
         # hyper['optimizer'] = optimizers.sgd(lr=hyper['learning_rate'])  # default: SGD
         #hyper['optimizer'] = optimizers.rmsprop(lr=0.0001, decay=1e-6)
-        hyper['optimizer'] = optimizers.adadelta()
+        hyper['optimizer'] = optimizers.adam()
         result = 'batch_size: {}\nepochs: {}\nlearning_rage: {}\noptimizer: {}\n'.format(hyper['batch_size'], hyper['epochs'],\
                                                                                          hyper['learning_rate'], hyper['optimizer'])
         f.write(result)
@@ -104,8 +102,10 @@ class ModelMgr():
         model = Sequential()
         model.add(Conv2D(32, (3, 3), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
         model.add(Conv2D(32, (3, 3), activation='relu'))
-        model.add(MaxPooling2D(pool_size=(2, 2),strides=(2, 2)))
-        model.add(Dropout(0.25))
+        model.add(Conv2D(32, (3, 3), activation='relu'))
+        model.add(Dropout(0.5))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Dropout(0.5))
 
         # model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
         # model.add(Conv2D(64, (3, 3), activation='relu'))
@@ -115,14 +115,7 @@ class ModelMgr():
 
 
         model.add(Flatten())
-        # Now add the Dense layers
-        # h_dense_0 = Dense(units=128, activation=ip_activation, kernel_initializer='uniform')
-        # cnn.add(h_dense_0)
-        # # Let's add one more before proceeding to the output layer
-        # h_dense_1 = Dense(units=64, activation=ip_activation, kernel_initializer='uniform')
-        # cnn.add(h_dense_1)
-        model.add(Dense(2048, activation='relu', kernel_initializer='glorot_uniform'))
-        model.add(Dense(1012, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dense(1024, activation='relu'))
         model.add(Dropout(0.25))
         model.add(Dense(len(self.target_class)))
         model.add(Activation('softmax'))
@@ -144,7 +137,6 @@ class ModelMgr():
             메모리 부족에 의한 오류임.
             batch_size를 줄이거나, 모델 구조의 파라미터(ex. 유닛수)를 줄여야함
         4. BatchNormalization() 사용 금지
-
         기타 문의 : sdh9446@gmail.com (수업조교)
         '''
         return model
