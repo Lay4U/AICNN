@@ -23,8 +23,8 @@ freq = 440  # Hz
 
 config = tf.ConfigProto()
 
-config.gpu_options.allow_growth = True
-# config.gpu_options.per_process_gpu_memory_fraction = 0.8
+#config.gpu_options.allow_growth = True
+config.gpu_options.per_process_gpu_memory_fraction = 0.6
 
 session = tf.Session(config=config)
 
@@ -163,15 +163,15 @@ Valid error: 0.9670988367386162
 
         nUnit = 1024
         model.add(Flatten())
-        model.add(Dense(1024, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
-        model.add(Dropout(nDropout))
-        model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
-        model.add(Dropout(nDropout))
-        model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
-        model.add(Dropout(nDropout))
-        model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
-        model.add(Dropout(nDropout))
-        model.add(Dense(256, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
+        # model.add(Dense(1024, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
+        # model.add(Dropout(nDropout))
+        # model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
+        # model.add(Dropout(nDropout))
+        # model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
+        # model.add(Dropout(nDropout))
+        # model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
+        # model.add(Dropout(nDropout))
+        model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
         model.add(Dropout(nDropout))
         '''
                 model.add(Dense(2048, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
