@@ -1,3 +1,10 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:709cfa876e5669d7a6394b5aee53b90dcc1be672215629adda0c782a14dc352c
-size 210
+batch_size: 32
+epochs: 20
+learning_rage: 0.01
+optimizer: <keras.optimizers.Adam object at 0x0000014694815E80>
+Test loss: 0.646868265729182
+Total: 67.60
+
+
+Accuracy: 0.86475
+Loss: 0.3200477654933929
