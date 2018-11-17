@@ -25,8 +25,8 @@ freq = 440  # Hz
 
 config = tf.ConfigProto()
 
-#config.gpu_options.allow_growth = True
-config.gpu_options.per_process_gpu_memory_fraction = 0.8
+config.gpu_options.allow_growth = True
+#config.gpu_options.per_process_gpu_memory_fraction = 0.4
 
 session = tf.Session(config=config)
 
@@ -84,8 +84,8 @@ class ModelMgr():
         train_y = self.y_train.reshape((e,f))
 
 
-        rf = RandomForestRegressor()
-        rf = rf.fit(train_x, train_y)
+        # rf = RandomForestRegressor()
+        # rf = rf.fit(train_x, train_y)
 
         history = model.fit(self.x_train, self.y_train,
                             batch_size=hp['batch_size'],
@@ -130,242 +130,31 @@ class ModelMgr():
         optimizer = Adam(lr=1e-3)
         '''
         return hyper
-    # def get_model(self):
-    #     from keras.models import Model
-    #     from keras.layers import Input
-    #     from keras import layers
-    #     i1= Input(shape=(32,32,1))
-    #     nDropout = 0.25
-    #
-    #     model = Sequential()
-    #     model.add(Conv2D(32, (3, 3), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-    #     model.add(Dropout(nDropout))
-    #
-    #     model.add(MaxPooling2D(pool_size=(2, 2)))
-    #     model.add(Dropout(nDropout))
-    #
-    #
-    #
-    #     # model.add(Dense(len(self.target_class)))
-    #     # model.add(Activation('softmax'))
-    #     model = Flatten()(model)
-    #
-    #     model1 = Model(inputs=i1, outputs=model)
-    #
-    #     i2 = Input(shape=(32, 32, 1))
-    #     nDropout = 0.5
-    #
-    #     nUnit = 1024
-    #     model.add(Flatten())
-    #
-    #     model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
-    #     model.add(Dropout(nDropout))
-    #     model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
-    #     model.add(Dropout(nDropout))
-    #     model = Flatten()(model)
-    #
-    #     model2 = Model(inputs=i2, outputs=model)
-    #
-    #
-    #     merge = layers.concatenate([model1(i1), model2(i2)])
-    #     last = Dense(10, activation='relu')(merge)
-    #     model = Model([i1, i2], last)
-    #
-    #     return model
+
     def get_model(self):
             nDropout = 0.25
             model = Sequential()
             model.add(Conv2D(32, (3, 3), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-            model.add(Dropout(nDropout))
-            # model.add(Conv2D(32, (3, 3), activation='relu'))
-            # model.add(Dropout(nDropout))
+            model.add(MaxPooling2D(pool_size=(2, 2)))
+            model.add(Conv2D(32, (3, 3), activation='relu'))
             model.add(MaxPooling2D(pool_size=(2, 2)))
             model.add(Dropout(nDropout))
-            '''
-            non
-            Last Accuracy: 0.955875
-    
-    Valid error: 0.7702255444414914
-            mapool
-            Last Accuracy: 0.975875
-            
-    
-    Valid error: 1.0640612498112023
-    
-    down conv
-            Last Accuracy: 0.971125
-    
-    Valid error: 0.9136082481145859
-            '''
             # model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
             # model.add(Conv2D(64, (3, 3), activation='relu'))
             # model.add(MaxPooling2D(pool_size=(2, 2)))
             # model.add(Dropout(0.25))
 
             nDropout = 0.5
-            '''
-    0.5
-    Last Accuracy: 0.883
-    
-    Valid error: 0.42263877797126775
-    
-     0.6
-    Last Accuracy: 0.663125
-    
-    Valid error: 0.0037601342201233345
-    
-    0.4
-    Last Accuracy: 0.956875
-    
-    Valid error: 0.9670988367386162
-    
-            '''
 
-            nUnit = 1024
             model.add(Flatten())
-            # model.add(Dense(1024, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
-            # model.add(Dropout(nDropout))
-            # model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
-            # model.add(Dropout(nDropout))
-            # model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
-            # model.add(Dropout(nDropout))
-            model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
-            model.add(Dropout(nDropout))
-            model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
-            model.add(Dropout(nDropout))
-            '''
-                    model.add(Dense(2048, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-                    model.add(Dropout(nDropout))
-                    model.add(Dense(1024, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-                    model.add(Dropout(nDropout))
-                    model.add(Dense(512, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-                    model.add(Dropout(nDropout))
-                    model.add(Dense(256, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-                    model.add(Dropout(nDropout))
-                    model.add(Dense(128, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-                    model.add(Dropout(nDropout))
-            
-    Last Accuracy: 0.87975
-    
-    Valid error: 0.5065860754251481
-    
-            model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
-            model.add(Dropout(nDropout))
             model.add(Dense(256, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
             model.add(Dropout(nDropout))
-            model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
+            model.add(Dense(64, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
             model.add(Dropout(nDropout))
-            model.add(Dense(1024, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
-            model.add(Dropout(nDropout))
-            model.add(Dense(2048, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
-            model.add(Dropout(nDropout))
-    Last Accuracy: 0.890125
-    
-    Valid error: 0.5184675998985767
-            '''
 
-            '''
-            
-            128
-            Last Accuracy: 0.747125
-            
-            Valid error: 0.05675763714313509
-            
-            256
-            Last Accuracy: 0.842625
-            
-            Valid error: 0.4056897324025631
-            
-            512
-            Last Accuracy: 0.9385
-            
-            Valid error: 0.7423957723230123
-            
-            1024
-            Last Accuracy: 0.966875
-            
-            Valid error: 1.5335488475980237
-            '''
-
-
-            # model.add(Dropout(nDropout))
-            # model.add(Dense(256, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-            # model.add(Dropout(nDropout))
-            # model.add(Dense(256, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-            # model.add(Dropout(nDropout))
-
-            # model.add(Dense(512, activation='relu', kernel_initializer='glorot_normal', bias_initializer='glorot_uniform'))
-            # model.add(Dropout(nDropout))
             model.add(Dense(len(self.target_class)))
             model.add(Activation('softmax'))
             model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-
-            '''
-            model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
-            model.add(Dropout(nDropout))
-            model.add(Dense(516, activation='relu', kernel_initializer='glorot_uniform'))
-            model.add(Dropout(nDropout))
-            사용시 
-            Last Accuracy: 0.930375
-            Valid error: 0.63189967565611
-            
-            model.add(Dense(256, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-            model.add(Dropout(nDropout))
-            model.add(Dense(256, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-            model.add(Dropout(nDropout))
-            model.add(Dense(256, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-            model.add(Dropout(nDropout))
-            model.add(Dense(256, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-            model.add(Dropout(nDropout))
-            model.add(Dense(256, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-            사용시
-            Last Accuracy: 0.84875
-    
-            Valid error: 0.2601667023301124
-            
-            
-            model.add(Dense(256, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-            model.add(Dropout(nDropout))
-            model.add(Dense(256, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-            model.add(Dropout(nDropout))
-            model.add(Dense(256, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-            사용시
-            Last Accuracy: 0.949625
-    
-            Valid error: 0.691403053805232
-            
-                    model.add(Dense(256, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-            model.add(Dropout(nDropout))
-            model.add(Dense(256, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-            model.add(Dropout(nDropout))
-            model.add(Dense(256, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-            model.add(Dropout(nDropout))
-            model.add(Dense(256, activation='relu', kernel_initializer = 'glorot_uniform', bias_initializer = 'glorot_uniform'))
-            사용시
-            Last Accuracy: 0.94575
-    
-    Valid error: 0.7000599619597196
-            '''
-
-            # model = Sequential()
-            ################
-            '''
-            (2) 모델 코드를 완성해주세요.
-            model.add(...)
-            '''
-            ################
-            '''
-            주의사항
-            1. 모델의 입력 데이터 크기는 (batch_size, 32, 32, 1) # 고양이 or 강아지 흑백 사진
-               출력 데이터 크기는 (batch_size, 2) # 고양이일 확률, 강아지일 확률
-            2. 최초 Dense() 사용 시, Flatten()을 먼저 사용해야함
-            3. out of memory 오류 시,
-                메모리 부족에 의한 오류임.
-                batch_size를 줄이거나, 모델 구조의 파라미터(ex. 유닛수)를 줄여야함
-            4. BatchNormalization() 사용 금지
-    
-            기타 문의 : sdh9446@gmail.com (수업조교)
-            '''
             return model
 
 
