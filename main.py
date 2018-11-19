@@ -26,7 +26,7 @@ freq = 440  # Hz
 config = tf.ConfigProto()
 
 config.gpu_options.allow_growth = True
-#config.gpu_options.per_process_gpu_memory_fraction = 0.4
+#config.gpu_options.per_process_gpu_memory_fraction = 0.7
 
 session = tf.Session(config=config)
 
@@ -86,13 +86,19 @@ class ModelMgr():
 
         # rf = RandomForestRegressor()
         # rf = rf.fit(train_x, train_y)
+        #https://tykimos.github.io/2017/07/09/Early_Stopping/
+        from keras.callbacks import EarlyStopping
 
-        history = model.fit(self.x_train, self.y_train,
+        early_stopping = EarlyStopping(monitor='val_loss',verbose=2, patience =5)
+
+        history = model.fit(np.array(self.x_train), np.array(self.y_train),
                             batch_size=hp['batch_size'],
                             epochs=hp['epochs'],
                             validation_data=validation_data,
                             shuffle=False,
-                            verbose=2)
+                            verbose=2,
+                            # callbacks=[early_stopping]
+                            )
         history.history['hypers'] = hp
         self.model = model
         self.history = history
@@ -115,47 +121,147 @@ class ModelMgr():
         hyper['batch_size'] = 32  # 배치 사이즈
         hyper['epochs'] = 20  # epochs은 최대 20 설정 !!
         # hyper['learning_rate'] = 0.01  # 학습률
-        hyper['learning_rate'] = 0.01  # 학습률
+        hyper['learning_rate'] = 0.1  # 학습률
         # 최적화 알고리즘 선택 [sgd, rmsprop, adagrad, adam 등]
         # hyper['optimizer'] = optimizers.sgd(lr=hyper['learning_rate'])  # default: SGD
         # hyper['optimizer'] = optimizers.rmsprop(lr=0.0001, decay=1e-6)
-        hyper['optimizer'] = optimizers.adam()
+        hyper['optimizer'] = optimizers.adamax()
         result = 'batch_size: {}\nepochs: {}\nlearning_rage: {}\noptimizer: {}\n'.format(hyper['batch_size'],
                                                                                          hyper['epochs'], \
                                                                                          hyper['learning_rate'],
                                                                                          hyper['optimizer'])
         f.write(result)
         ############################
-        '''
-        optimizer = Adam(lr=1e-3)
-        '''
+
         return hyper
 
     def get_model(self):
-            nDropout = 0.25
-            model = Sequential()
-            model.add(Conv2D(32, (3, 3), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-            model.add(MaxPooling2D(pool_size=(2, 2)))
-            model.add(Conv2D(32, (3, 3), activation='relu'))
-            model.add(MaxPooling2D(pool_size=(2, 2)))
-            model.add(Dropout(nDropout))
-            # model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
-            # model.add(Conv2D(64, (3, 3), activation='relu'))
-            # model.add(MaxPooling2D(pool_size=(2, 2)))
-            # model.add(Dropout(0.25))
+        # from sklearn.model_selection import StratifiedKFold
+        # kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=seed)
+        model = Sequential()
+        model.add(Conv2D(16, (3, 3), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2),strides=(2, 2)))
+        # model.add(Dropout(0.25))
+        model.add(Conv2D(32, (3, 3), activation='relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+        model.add(Dropout(0.3))
 
-            nDropout = 0.5
+        # model.add(Conv2D(64, (3, 3), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        # model.add(Dropout(0.25))
+        # model.add(MaxPooling2D(pool_size=(2, 2),strides=(2, 2)))
+        # model.add(Dropout(0.25))
+        # model.add(Conv2D(64, (3, 3), padding='same',  activation='relu'))
+        # model.add(Conv2D(64, (3, 3), activation='relu'))
+        # model.add(MaxPooling2D(pool_size=(2, 2),strides=(2, 2)))
+        # model.add(Conv2D(128, (3, 3), padding='same',  activation='relu'))
+        # model.add(Conv2D(128, (3, 3), activation='relu'))
+        # model.add(MaxPooling2D(pool_size=(2, 2),strides=(2, 2)))
+        # model.add(Dropout(0.25))
 
-            model.add(Flatten())
-            model.add(Dense(256, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
-            model.add(Dropout(nDropout))
-            model.add(Dense(64, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform'))
-            model.add(Dropout(nDropout))
+        model.add(Flatten())
+        nDropout=0.3
+        # model.add(Dense(2048, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dropout(nDropout))
+        # model.add(Dense(1024, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dropout(nDropout))
+        # model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dropout(nDropout))
+        # model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dropout(nDropout))
+        # model.add(Dense(2048, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dropout(nDropout))
+        # model.add(Dense(1024, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dropout(nDropout))
+        # model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dropout(nDropout))
+        # model.add(Dense(256, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dropout(nDropout))
+        model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dropout(nDropout))
+        # model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dropout(nDropout))
+        # model.add(Dense(64, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dropout(nDropout))
 
-            model.add(Dense(len(self.target_class)))
-            model.add(Activation('softmax'))
-            model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-            return model
+        model.add(Dense(len(self.target_class)))
+        model.add(Activation('softmax'))
+        return model
+
+
+
+
+        '''
+        model = Sequential()
+        model.add(Conv2D(32, (3, 3), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        # model.add(Conv2D(32, (3, 3), activation='relu'))
+        # model.add(MaxPooling2D(pool_size=(2, 2),strides=(2, 2)))
+        # model.add(Conv2D(64, (3, 3), padding='same',  activation='relu'))
+        # model.add(Conv2D(64, (3, 3), activation='relu'))
+        # model.add(MaxPooling2D(pool_size=(2, 2),strides=(2, 2)))
+        model.add(Dropout(0.25))
+        # model.add(Conv2D(128, (3, 3), padding='same',  activation='relu'))
+        # model.add(Conv2D(128, (3, 3), activation='relu'))
+        # model.add(MaxPooling2D(pool_size=(2, 2),strides=(2, 2)))
+        # model.add(Dropout(0.25))
+
+        model.add(Flatten())
+        nDropout=0.3
+        # model.add(Dense(2048, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dropout(0.25))
+        # model.add(Dense(1024, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dropout(0.25))
+        # model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dropout(0.25))
+        # model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dropout(0.5))
+        model.add(Dense(2048, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dropout(nDropout))
+        model.add(Dense(1024, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dropout(nDropout))
+        model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dropout(nDropout))
+        model.add(Dense(256, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dropout(nDropout))
+        model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dropout(nDropout))
+        # model.add(Dense(64, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dropout(0.2))
+
+        model.add(Dense(len(self.target_class)))
+        model.add(Activation('softmax'))
+        return model
+        '''
+        '''
+        Last Accuracy: 0.921375
+
+Valid error: 0.45004705375432963
+        '''
+        # from keras.models import Model
+        # from keras import layers
+        # from keras.layers import Input, Dense
+        #
+        # i1 = Input((self.x_train[1:]))
+        # m1 = Conv2D(32, (3, 3), padding='same', input_shape=self.x_train.shape[1:], activation='relu')(i1)
+        # m1 = Conv2D(32, (3, 3), activation='relu')(i1)
+        # m1 = MaxPooling2D(pool_size=(2, 2))(i1)
+        # m1 = Dropout(0.25)(i1)
+        # m1 = Flatten()(i1)
+        # model1 = Model(inputs=i1, outputs=m1)
+        #
+        # i2 = Input(self.x_train[1:])
+        # m2 = Flatten()(i2)
+        # m2 = Dense(256, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform')(i2)
+        # m2 = Dropout(0.5)(i2)
+        # m2 = Dense(64, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform')(i2)
+        # m2 = Dropout(0.5)(i2)
+        # m2 = Flatten()(i2)
+        # model2 = Model(inputs=i2, outputs=m2)
+        #
+        # merge = layers.concatenate(([model1(i1), model2(i2)]))
+        # last = Dense(2, activation='softmax')
+        # model = Model([i1, i2], last)
+
+        return model
 
 
     def get_model2(self):
@@ -322,7 +428,8 @@ class ModelMgr():
 
     def wtf(self):
         kr = KerasRegressor(build_fn=self.get_model, nb_epoch=100, batch_size=5, verbose=2)
-        kr = kr.fit(X, y)
+        kr = kr.fit(self.x_train, self.y_train)
+        return kr
 
 
 if __name__ == '__main__':
