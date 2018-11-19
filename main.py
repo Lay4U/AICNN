@@ -121,11 +121,11 @@ class ModelMgr():
         hyper['batch_size'] = 32  # 배치 사이즈
         hyper['epochs'] = 20  # epochs은 최대 20 설정 !!
         # hyper['learning_rate'] = 0.01  # 학습률
-        hyper['learning_rate'] = 0.1  # 학습률
+        hyper['learning_rate'] = 1  # 학습률
         # 최적화 알고리즘 선택 [sgd, rmsprop, adagrad, adam 등]
         # hyper['optimizer'] = optimizers.sgd(lr=hyper['learning_rate'])  # default: SGD
         # hyper['optimizer'] = optimizers.rmsprop(lr=0.0001, decay=1e-6)
-        hyper['optimizer'] = optimizers.adamax()
+        hyper['optimizer'] = optimizers.adam()
         result = 'batch_size: {}\nepochs: {}\nlearning_rage: {}\noptimizer: {}\n'.format(hyper['batch_size'],
                                                                                          hyper['epochs'], \
                                                                                          hyper['learning_rate'],
@@ -139,51 +139,20 @@ class ModelMgr():
         # from sklearn.model_selection import StratifiedKFold
         # kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=seed)
         model = Sequential()
-        model.add(Conv2D(16, (3, 3), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        model.add(MaxPooling2D(pool_size=(2, 2),strides=(2, 2)))
-        # model.add(Dropout(0.25))
-        model.add(Conv2D(32, (3, 3), activation='relu'))
-        model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-        model.add(Dropout(0.3))
+        nDropout = 0.25
+        model.add(Conv2D(16, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        # model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
 
-        # model.add(Conv2D(64, (3, 3), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        # model.add(Dropout(0.25))
-        # model.add(MaxPooling2D(pool_size=(2, 2),strides=(2, 2)))
-        # model.add(Dropout(0.25))
-        # model.add(Conv2D(64, (3, 3), padding='same',  activation='relu'))
-        # model.add(Conv2D(64, (3, 3), activation='relu'))
-        # model.add(MaxPooling2D(pool_size=(2, 2),strides=(2, 2)))
-        # model.add(Conv2D(128, (3, 3), padding='same',  activation='relu'))
-        # model.add(Conv2D(128, (3, 3), activation='relu'))
-        # model.add(MaxPooling2D(pool_size=(2, 2),strides=(2, 2)))
-        # model.add(Dropout(0.25))
+        model.add(Conv2D(24, (2, 2), activation='relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+        model.add(Dropout(nDropout))
 
         model.add(Flatten())
-        nDropout=0.3
-        # model.add(Dense(2048, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dropout(nDropout))
-        # model.add(Dense(1024, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dropout(nDropout))
-        # model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dropout(nDropout))
-        # model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dropout(nDropout))
-        # model.add(Dense(2048, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dropout(nDropout))
-        # model.add(Dense(1024, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dropout(nDropout))
-        # model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dropout(nDropout))
-        # model.add(Dense(256, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dropout(nDropout))
-        model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
-        model.add(Dropout(nDropout))
-        # model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dropout(nDropout))
-        # model.add(Dense(64, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dropout(nDropout))
 
-        model.add(Dense(len(self.target_class)))
+        model.add(Dense(128, activation='relu'))
+        model.add(Dropout(nDropout))
+
+        model.add(Dense(2))
         model.add(Activation('softmax'))
         return model
 
