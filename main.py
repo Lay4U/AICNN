@@ -123,7 +123,7 @@ class ModelMgr():
         hyper['batch_size'] = 32  # 배치 사이즈
         hyper['epochs'] = 20  # epochs은 최대 20 설정 !!
         # hyper['learning_rate'] = 0.01  # 학습률
-        hyper['learning_rate'] = 0.1  # 학습률
+        hyper['learning_rate'] = 1  # 학습률
         # 최적화 알고리즘 선택 [sgd, rmsprop, adagrad, adam 등]
         # hyper['optimizer'] = optimizers.sgd(lr=hyper['learning_rate'])  # default: SGD
         # hyper['optimizer'] = optimizers.rmsprop(lr=0.0001, decay=1e-6)
@@ -141,16 +141,24 @@ class ModelMgr():
         # from sklearn.model_selection import StratifiedKFold
         # kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=seed)
         model = Sequential()
-        nDropout = 0.2
-        model.add(Conv2D(8, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        #model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-        model.add(Conv2D(8, (2, 2), activation='relu'))
-        model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+        nDropout = 0.25
+        model.add(Conv2D(32, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        model.add(Conv2D(64, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        model.add(MaxPooling2D(pool_size=(3, 3), strides=(3, 3)))
+        # model.add(Conv2D(128, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        # model.add(Conv2D(256, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        # model.add(MaxPooling2D(pool_size=(6, 6), strides=(6, 6)))
+        # model.add(Conv2D(64, (2, 2), activation='relu'))
+        # model.add(MaxPooling2D(pool_size=(2, 2)))
+        # model.add(MaxPooling2D(pool_size=(4, 4), strides=(2, 2)))
         model.add(Dropout(nDropout))
 
         model.add(Flatten())
 
-        model.add(Dense(128, activation='relu'))
+        model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dense(24, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
         model.add(Dropout(nDropout))
 
         model.add(Dense(2))
