@@ -86,11 +86,13 @@ class ModelMgr():
 
         # rf = RandomForestRegressor()
         # rf = rf.fit(train_x, train_y)
+
         #https://tykimos.github.io/2017/07/09/Early_Stopping/
         from keras.callbacks import EarlyStopping
 
         early_stopping = EarlyStopping(monitor='val_loss',verbose=2, patience =5)
-
+        # rf = RandomForestRegressor()
+        # rf.fit(train_x, train_y)
         history = model.fit(np.array(self.x_train), np.array(self.y_train),
                             batch_size=hp['batch_size'],
                             epochs=hp['epochs'],
@@ -121,7 +123,7 @@ class ModelMgr():
         hyper['batch_size'] = 32  # 배치 사이즈
         hyper['epochs'] = 20  # epochs은 최대 20 설정 !!
         # hyper['learning_rate'] = 0.01  # 학습률
-        hyper['learning_rate'] = 1  # 학습률
+        hyper['learning_rate'] = 0.1  # 학습률
         # 최적화 알고리즘 선택 [sgd, rmsprop, adagrad, adam 등]
         # hyper['optimizer'] = optimizers.sgd(lr=hyper['learning_rate'])  # default: SGD
         # hyper['optimizer'] = optimizers.rmsprop(lr=0.0001, decay=1e-6)
@@ -139,11 +141,10 @@ class ModelMgr():
         # from sklearn.model_selection import StratifiedKFold
         # kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=seed)
         model = Sequential()
-        nDropout = 0.25
-        model.add(Conv2D(16, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        # model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-
-        model.add(Conv2D(24, (2, 2), activation='relu'))
+        nDropout = 0.2
+        model.add(Conv2D(8, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        #model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+        model.add(Conv2D(8, (2, 2), activation='relu'))
         model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
         model.add(Dropout(nDropout))
 
