@@ -141,10 +141,10 @@ class ModelMgr():
         # from sklearn.model_selection import StratifiedKFold
         # kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=seed)
         model = Sequential()
-        nDropout = 0.25
-        model.add(Conv2D(32, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        model.add(Conv2D(64, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        model.add(MaxPooling2D(pool_size=(3, 3), strides=(3, 3)))
+        nDropout = 0.1
+        model.add(Conv2D(4, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        model.add(Conv2D(8, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2), strides=(1, 1)))
         # model.add(Conv2D(128, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
         # model.add(Conv2D(256, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
         # model.add(MaxPooling2D(pool_size=(6, 6), strides=(6, 6)))
@@ -154,8 +154,8 @@ class ModelMgr():
         model.add(Dropout(nDropout))
 
         model.add(Flatten())
-
-        model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
+        nDropout = 0.15
+        model.add(Dense(64, activation='relu', kernel_initializer='glorot_uniform'))
         # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
         # model.add(Dense(24, activation='relu', kernel_initializer='glorot_uniform'))
         # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
