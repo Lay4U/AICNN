@@ -1,10 +1,10 @@
 batch_size: 32
 epochs: 20
 learning_rage: 1
-optimizer: <keras.optimizers.Adam object at 0x0000020F5E416B00>
-Test loss: 0.9209504554545406
-Total: 68.10
+optimizer: <keras.optimizers.Adam object at 0x0000019700076B00>
+Test loss: 0.8433316379218816
+Total: 72.05
 
 
-Accuracy: 0.960875
-Loss: 0.11181001389026642
+Accuracy: 0.943875
+Loss: 0.13995006263256074
