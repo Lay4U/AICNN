@@ -127,7 +127,7 @@ class ModelMgr():
         # 최적화 알고리즘 선택 [sgd, rmsprop, adagrad, adam 등]
         # hyper['optimizer'] = optimizers.sgd(lr=hyper['learning_rate'])  # default: SGD
         # hyper['optimizer'] = optimizers.rmsprop(lr=0.0001, decay=1e-6)
-        hyper['optimizer'] = optimizers.adam()
+        hyper['optimizer'] = optimizers.nadam()
         result = 'batch_size: {}\nepochs: {}\nlearning_rage: {}\noptimizer: {}\n'.format(hyper['batch_size'],
                                                                                          hyper['epochs'], \
                                                                                          hyper['learning_rate'],
@@ -141,11 +141,11 @@ class ModelMgr():
         # from sklearn.model_selection import StratifiedKFold
         # kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=seed)
         model = Sequential()
-        nDropout = 0.3
+        nDropout = 0.1
         # model.add(Conv2D(4, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        model.add(Conv2D(16, (3, 3), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        model.add(Conv2D(32, (3, 3), activation='relu'))
-        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Conv2D(32, (4, 4), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        model.add(Conv2D(32, (4, 4), activation='relu'))
+        model.add(MaxPooling2D(pool_size=(4, 4)))
         # model.add(Conv2D(128, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
         # model.add(Conv2D(256, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
         # model.add(MaxPooling2D(pool_size=(6, 6), strides=(6, 6)))
@@ -154,8 +154,10 @@ class ModelMgr():
         # model.add(MaxPooling2D(pool_size=(4, 4), strides=(2, 2)))
         model.add(Dropout(nDropout))
 
+
+        nDropout = 0.3
         model.add(Flatten())
-        model.add(Dense(64, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
         # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
         # model.add(Dense(24, activation='relu', kernel_initializer='glorot_uniform'))
         # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
