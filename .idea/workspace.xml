@@ -15,16 +15,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="152" column="51" lean-forward="true" selection-start-line="152" selection-start-column="51" selection-end-line="152" selection-end-column="51" />
+            <state relative-caret-position="213">
+              <caret line="163" lean-forward="true" selection-start-line="163" selection-end-line="163" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="result.png" pinned="false" current-in-tab="false">
+      <file leaf-file-name="result.png" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/result.png">
           <provider selected="true" editor-type-id="images" />
         </entry>
@@ -41,8 +41,8 @@
       <file leaf-file-name="pooling.py" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/keras/layers/pooling.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6000">
-              <caret line="258" column="8" selection-start-line="258" selection-start-column="8" selection-end-line="258" selection-end-column="8" />
+            <state relative-caret-position="183">
+              <caret line="168" column="8" selection-start-line="168" selection-start-column="8" selection-end-line="168" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -607,8 +607,8 @@
     </entry>
     <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/keras/layers/pooling.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6000">
-          <caret line="258" column="8" selection-start-line="258" selection-start-column="8" selection-end-line="258" selection-end-column="8" />
+        <state relative-caret-position="183">
+          <caret line="168" column="8" selection-start-line="168" selection-start-column="8" selection-end-line="168" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -619,15 +619,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/result.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="152" column="51" lean-forward="true" selection-start-line="152" selection-start-column="51" selection-end-line="152" selection-end-column="51" />
+        <state relative-caret-position="213">
+          <caret line="163" lean-forward="true" selection-start-line="163" selection-end-line="163" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/result.png">
+      <provider selected="true" editor-type-id="images" />
     </entry>
   </component>
 </project>
