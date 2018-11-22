@@ -127,7 +127,7 @@ class ModelMgr():
         # 최적화 알고리즘 선택 [sgd, rmsprop, adagrad, adam 등]
         # hyper['optimizer'] = optimizers.sgd(lr=hyper['learning_rate'])  # default: SGD
         # hyper['optimizer'] = optimizers.rmsprop(lr=0.0001, decay=1e-6)
-        hyper['optimizer'] = optimizers.nadam()
+        hyper['optimizer'] = optimizers.adam()
         result = 'batch_size: {}\nepochs: {}\nlearning_rage: {}\noptimizer: {}\n'.format(hyper['batch_size'],
                                                                                          hyper['epochs'], \
                                                                                          hyper['learning_rate'],
@@ -138,14 +138,14 @@ class ModelMgr():
         return hyper
 
     def get_model(self):
-        # from sklearn.model_selection import StratifiedKFold
-        # kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=seed)
         model = Sequential()
         nDropout = 0.1
         # model.add(Conv2D(4, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        model.add(Conv2D(32, (4, 4), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        model.add(Conv2D(32, (4, 4), activation='relu'))
-        model.add(MaxPooling2D(pool_size=(4, 4)))
+        model.add(Conv2D(32, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        # model.add(Dropout(nDropout))
+        model.add(Conv2D(64, (2, 2), activation='relu'))
+        # model.add(Dropout(nDropout))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
         # model.add(Conv2D(128, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
         # model.add(Conv2D(256, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
         # model.add(MaxPooling2D(pool_size=(6, 6), strides=(6, 6)))
@@ -155,17 +155,58 @@ class ModelMgr():
         model.add(Dropout(nDropout))
 
 
-        nDropout = 0.3
         model.add(Flatten())
-        model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dense(24, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
         model.add(Dropout(nDropout))
+        # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
+        # # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
+        # # model.add(Dense(24, activation='relu', kernel_initializer='glorot_uniform'))
+        # # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dropout(nDropout))
 
         model.add(Dense(2))
         model.add(Activation('softmax'))
         return model
+
+        # from sklearn.model_selection import StratifiedKFold
+        # kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=seed)
+        # model = Sequential()
+        # nDropout = 0.03
+        #
+        # # model.add(Conv2D(4, (2, 2), padding= 'same', input_shape=self.x_train.shape[1:], activation='relu'))
+        # model.add(Conv2D(8, (3, 3), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        # model.add(Dropout(nDropout))
+        # model.add(Dropout(nDropout))
+        # model.add(Conv2D(16, (3, 3), activation='relu'))
+        # model.add(Dropout(nDropout))
+        # model.add(Dropout(nDropout))
+        # model.add(MaxPooling2D(pool_size=(4, 4)))
+        # model.add(Dropout(nDropout))
+        # model.add(Dropout(nDropout))
+        # # model.add(Conv2D(128, (2, 2), padding='same', input_shape=selfwnsfo1234.x_train.shape[1:], activation='relu'))
+        # # model.add(Conv2D(256, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        # # model.add(MaxPooling2D(pool_size=(6, 6), strides=(6, 6)))
+        # # model.add(Conv2D(64, (2, 2), activation='relu'))
+        # # model.add(MaxPooling2D(pool_size=(2, 2)))
+        # # model.add(MaxPooling2D(pool_size=(4, 4), strides=(2, 2)))
+        #
+        #
+        #
+        # # nDropout = 0.4
+        # model.add(Flatten())
+        # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
+        # model.add(Dropout(nDropout))
+        # model.add(Dropout(nDropout))
+        # # model.add(Dense(64, activation='relu', kernel_initializer='glorot_uniform'))
+        # # model.add(Dropout(nDropout))
+        # # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
+        # # model.add(Dense(24, activation='relu', kernel_initializer='glorot_uniform'))
+        # # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
+        #
+        #
+        # model.add(Dense(2))
+        # model.add(Activation('softmax'))
+        # return model
 
 
 
