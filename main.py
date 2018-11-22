@@ -145,7 +145,9 @@ class ModelMgr():
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
         model.add(Conv2D(64, (2, 2), activation='relu'))
+        model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
@@ -161,10 +163,12 @@ class ModelMgr():
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
 
 
         model.add(Flatten())
         model.add(Dense(256, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
