@@ -138,275 +138,46 @@ class ModelMgr():
         return hyper
 
     def get_model(self):
+
         model = Sequential()
         nDropout = 0.1
-        # model.add(Conv2D(4, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+
         model.add(Conv2D(32, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
+
+
+
+
         model.add(Conv2D(64, (2, 2), activation='relu'))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
-        model.add(Dropout(nDropout))
+
+
+
         model.add(MaxPooling2D(pool_size=(2, 2)))
-        # model.add(Conv2D(128, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        # model.add(Conv2D(256, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        # model.add(MaxPooling2D(pool_size=(6, 6), strides=(6, 6)))
-        # model.add(Conv2D(64, (2, 2), activation='relu'))
-        # model.add(MaxPooling2D(pool_size=(2, 2)))
-        # model.add(MaxPooling2D(pool_size=(4, 4), strides=(2, 2)))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
-        model.add(Dropout(nDropout))
+
 
 
         model.add(Flatten())
-        model.add(Dense(256, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dense(1024, activation='relu', kernel_initializer='glorot_uniform'))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
-        model.add(Dropout(nDropout))
-        # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
-        # # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
-        # # model.add(Dense(24, activation='relu', kernel_initializer='glorot_uniform'))
-        # # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dropout(nDropout))
+
+
 
         model.add(Dense(2))
         model.add(Activation('softmax'))
-        return model
-
-        # from sklearn.model_selection import StratifiedKFold
-        # kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=seed)
-        # model = Sequential()
-        # nDropout = 0.03
-        #
-        # # model.add(Conv2D(4, (2, 2), padding= 'same', input_shape=self.x_train.shape[1:], activation='relu'))
-        # model.add(Conv2D(8, (3, 3), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        # model.add(Dropout(nDropout))
-        # model.add(Dropout(nDropout))
-        # model.add(Conv2D(16, (3, 3), activation='relu'))
-        # model.add(Dropout(nDropout))
-        # model.add(Dropout(nDropout))
-        # model.add(MaxPooling2D(pool_size=(4, 4)))
-        # model.add(Dropout(nDropout))
-        # model.add(Dropout(nDropout))
-        # # model.add(Conv2D(128, (2, 2), padding='same', input_shape=selfwnsfo1234.x_train.shape[1:], activation='relu'))
-        # # model.add(Conv2D(256, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        # # model.add(MaxPooling2D(pool_size=(6, 6), strides=(6, 6)))
-        # # model.add(Conv2D(64, (2, 2), activation='relu'))
-        # # model.add(MaxPooling2D(pool_size=(2, 2)))
-        # # model.add(MaxPooling2D(pool_size=(4, 4), strides=(2, 2)))
-        #
-        #
-        #
-        # # nDropout = 0.4
-        # model.add(Flatten())
-        # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dropout(nDropout))
-        # model.add(Dropout(nDropout))
-        # # model.add(Dense(64, activation='relu', kernel_initializer='glorot_uniform'))
-        # # model.add(Dropout(nDropout))
-        # # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
-        # # model.add(Dense(24, activation='relu', kernel_initializer='glorot_uniform'))
-        # # model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
-        #
-        #
-        # model.add(Dense(2))
-        # model.add(Activation('softmax'))
-        # return model
-
-
-
-
-        '''
-        model = Sequential()
-        model.add(Conv2D(32, (3, 3), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        # model.add(Conv2D(32, (3, 3), activation='relu'))
-        # model.add(MaxPooling2D(pool_size=(2, 2),strides=(2, 2)))
-        # model.add(Conv2D(64, (3, 3), padding='same',  activation='relu'))
-        # model.add(Conv2D(64, (3, 3), activation='relu'))
-        # model.add(MaxPooling2D(pool_size=(2, 2),strides=(2, 2)))
-        model.add(Dropout(0.25))
-        # model.add(Conv2D(128, (3, 3), padding='same',  activation='relu'))
-        # model.add(Conv2D(128, (3, 3), activation='relu'))
-        # model.add(MaxPooling2D(pool_size=(2, 2),strides=(2, 2)))
-        # model.add(Dropout(0.25))
-
-        model.add(Flatten())
-        nDropout=0.3
-        # model.add(Dense(2048, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dropout(0.25))
-        # model.add(Dense(1024, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dropout(0.25))
-        # model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dropout(0.25))
-        # model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dropout(0.5))
-        model.add(Dense(2048, activation='relu', kernel_initializer='glorot_uniform'))
-        model.add(Dropout(nDropout))
-        model.add(Dense(1024, activation='relu', kernel_initializer='glorot_uniform'))
-        model.add(Dropout(nDropout))
-        model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
-        model.add(Dropout(nDropout))
-        model.add(Dense(256, activation='relu', kernel_initializer='glorot_uniform'))
-        model.add(Dropout(nDropout))
-        model.add(Dense(128, activation='relu', kernel_initializer='glorot_uniform'))
-        model.add(Dropout(nDropout))
-        # model.add(Dense(64, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dropout(0.2))
-
-        model.add(Dense(len(self.target_class)))
-        model.add(Activation('softmax'))
-        return model
-        '''
-        '''
-        Last Accuracy: 0.921375
-
-Valid error: 0.45004705375432963
-        '''
-        # from keras.models import Model
-        # from keras import layers
-        # from keras.layers import Input, Dense
-        #
-        # i1 = Input((self.x_train[1:]))
-        # m1 = Conv2D(32, (3, 3), padding='same', input_shape=self.x_train.shape[1:], activation='relu')(i1)
-        # m1 = Conv2D(32, (3, 3), activation='relu')(i1)
-        # m1 = MaxPooling2D(pool_size=(2, 2))(i1)
-        # m1 = Dropout(0.25)(i1)
-        # m1 = Flatten()(i1)
-        # model1 = Model(inputs=i1, outputs=m1)
-        #
-        # i2 = Input(self.x_train[1:])
-        # m2 = Flatten()(i2)
-        # m2 = Dense(256, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform')(i2)
-        # m2 = Dropout(0.5)(i2)
-        # m2 = Dense(64, activation='relu', kernel_initializer='glorot_uniform', bias_initializer='glorot_uniform')(i2)
-        # m2 = Dropout(0.5)(i2)
-        # m2 = Flatten()(i2)
-        # model2 = Model(inputs=i2, outputs=m2)
-        #
-        # merge = layers.concatenate(([model1(i1), model2(i2)]))
-        # last = Dense(2, activation='softmax')
-        # model = Model([i1, i2], last)
-
-        return model
-
-
-    def get_model2(self):
-        model = Sequential()
-        model.add(Flatten())
-        #model.add(Dense(60, input_shape=self.x_train.shape[1:], init='normal', activation='relu'))
-        model.add(Dense(12, input_shape = (32,32,2)))
-        model.add(Dense(20, kernel_initializer='uniform', activation='relu'))
-        model.add(Dense(2, kernel_initializer='uniform', activation='sigmoid'))
-        # Compile model
-        model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-        return model
-
-
-    def get_modezq(self):
-        '''
-        Last Accuracy: 0.927125
-
-        Valid error: 0.5721124948859215
-        '''
-        nDropout = 0.3
-        model = Sequential()
-        model.add(Conv2D(16, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        model.add(Conv2D(16, (2, 2), activation='relu', padding='same'))
-        model.add(MaxPooling2D(pool_size=(2, 2)))
-        model.add(Dropout(nDropout))
-
-        model.add(Conv2D(32, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        model.add(Conv2D(32, (2, 2), activation='relu', padding='same'))
-        model.add(MaxPooling2D(pool_size=(2, 2)))
-        model.add(Dropout(nDropout))
-
-        model.add(Conv2D(64, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        model.add(Conv2D(64, (2, 2), activation='relu', padding='same'))
-        model.add(MaxPooling2D(pool_size=(2, 2)))
-        model.add(Dropout(nDropout))
-        # model.add(Conv2D(64, (3, 3), padding='same', activation='relu'))
-        # model.add(Dropout(0.3))
-        # model.add(Conv2D(64, (3, 3), activation='relu'))
-        # # model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-        # model.add(Dropout(0.3))
-
-        nDropout = 0.4  # 0.3 88,0.4     0.4 93,0.78     #0.2 97,1.04
-        model.add(Flatten())
-        # model.add(Dense(4096, activation='relu'))
-        # model.add(Dropout(nDropout))
-        # model.add(Dense(2048, activation='relu'))
-        # model.add(Dropout(nDropout))
-        # model.add(Dense(1024, activation='relu'))
-        # model.add(Dropout(nDropout))
-
-        # model.add(Dense(64, activation='relu')) #128: 0.6045 256: 0.74
-        # model.add(Dropout(nDropout))
-        # model.add(Dense(64, activation='relu')) #128: 0.6045 256: 0.74
-        # model.add(Dropout(nDropout))
-        model.add(Dense(2048, activation='relu', kernel_initializer='glorot_uniform'))
-        model.add(Dense(1024, activation='relu', kernel_initializer='glorot_uniform'))
-        # model.add(Dense(1024, activation='relu')) #128: 0.6045 256: 0.74
-        model.add(Dropout(nDropout))
-        # model.add(Dense(128, activation='relu')) #128: 0.6045 256: 0.74
-        # model.add(Dropout(nDropout))
-        model.add(Dense(len(self.target_class)))
-        model.add(Activation('softmax'))
-
-        model.compile(optimizer='adam',
-                      loss='categorical_crossentropy',
-                      metrics=['accuracy'])
-
-        # model = Sequential()
-        # model.add(Conv2D(16, (5, 5),strides=(1,1), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
-        # model.add(MaxPooling2D(pool_size=(2, 2)))
-        # model.add(Dropout(0.2))
-        #
-        # model.add(Conv2D(32, (3, 3), strides=(1,1), padding='same', activation='relu'))
-        # model.add(Conv2D(32, (3, 3), strides=(1,1), activation='relu'))
-        # model.add(MaxPooling2D(pool_size=(2, 2)))
-        # model.add(Dropout(0.2))
-        #
-        # model.add(Conv2D(64, (3, 3), strides=(1, 1), activation='relu'))
-        #
-        #
-        # model.add(Flatten())
-        # model.add(Dense(256, activation='relu'))
-        # model.add(Dropout(0.3))
-        # model.add(Dense(128, activation='relu'))
-        # model.add(Dropout(0.3))
-        # model.add(Dense(64, activation='relu'))
-        # model.add(Dropout(0.3))
-        # model.add(Dense(len(self.target_class)))
-        # model.add(Activation('softmax'))
-
-        # model = Sequential()
-        ################
-        '''
-        (2) 모델 코드를 완성해주세요.
-        model.add(...)
-        '''
-        ################
-        '''
-        주의사항
-        1. 모델의 입력 데이터 크기는 (batch_size, 32, 32, 1) # 고양이 or 강아지 흑백 사진
-           출력 데이터 크기는 (batch_size, 2) # 고양이일 확률, 강아지일 확률
-        2. 최초 Dense() 사용 시, Flatten()을 먼저 사용해야함
-        3. out of memory 오류 시,
-            메모리 부족에 의한 오류임.
-            batch_size를 줄이거나, 모델 구조의 파라미터(ex. 유닛수)를 줄여야함
-        4. BatchNormalization() 사용 금지
-        기타 문의 : sdh9446@gmail.com (수업조교)
-        '''
         return model
 
 
@@ -483,4 +254,4 @@ if __name__ == '__main__':
         modelMgr.test()
 
     f.close()
-    winsound.Beep(freq, duration)  # 코드 실행 끝나면 비프음 나도록
+    # winsound.Beep(freq, duration)  # 코드 실행 끝나면 비프음 나도록
