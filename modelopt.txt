@@ -1,0 +1,342 @@
+    def get_model(self):
+
+        model = Sequential()
+        nDropout = 0.1
+
+        model.add(Conv2D(32, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        model.add(Conv2D(64, (2, 2), activation='relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+
+        model.add(Dropout(nDropout))
+
+
+        model.add(Flatten())
+        model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dropout(nDropout))
+
+        model.add(Dense(2))
+        model.add(Activation('softmax'))
+        return model
+
+0.1
+Last Accuracy: 0.99375
+
+Valid error: 1.63636306049439
+
+0.2
+Last Accuracy: 0.988875
+
+Valid error: 1.1707727284834253
+
+
+0.3
+Last Accuracy: 0.985375
+
+Valid error: 1.1729064628127963
+
+0.4
+Last Accuracy: 0.979125
+
+Valid error: 0.9110943900495768
+
+0.5
+Last Accuracy: 0.965
+
+Valid error: 0.7391384080722928
+
+
+    def get_model(self):
+
+        model = Sequential()
+        nDropout = 0.5
+
+        model.add(Conv2D(32, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        model.add(Dropout(nDropout))
+        model.add(Conv2D(64, (2, 2), activation='relu'))
+        model.add(Dropout(nDropout))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Dropout(nDropout))
+
+
+        model.add(Flatten())
+        model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dropout(nDropout))
+
+        model.add(Dense(2))
+        model.add(Activation('softmax'))
+        return model
+
+0.1
+Last Accuracy: 0.978125
+
+Valid error: 0.9014499006271363
+
+0.3
+Last Accuracy: 0.958375
+
+Valid error: 0.7136665057465434
+
+0.5
+Last Accuracy: 0.859
+
+Valid error: 0.2553915236592293
+
+
+
+   def get_model(self):
+
+        model = Sequential()
+        nDropout = 0.1
+
+        model.add(Conv2D(32, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+
+        model.add(Conv2D(64, (2, 2), activation='relu'))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+
+
+        model.add(Flatten())
+        model.add(Dense(512, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+
+        model.add(Dense(2))
+        model.add(Activation('softmax'))
+        return model
+
+0.1 Dropout:3
+
+Last Accuracy: 0.972875
+
+Valid error: 0.7724542545806616
+
+0.05
+Last Accuracy: 0.980875
+
+Valid error: 1.0325583293968812
+
+0.15
+Last Accuracy: 0.9285
+
+Valid error: 0.5330765684098006
+
+0.125
+Last Accuracy: 0.95725
+
+Valid error: 0.6145210122428835
+
+##############################################################
+
+0.1 Dropout:2
+Last Accuracy: 0.982125
+
+Valid error: 0.9409255225369707
+
+1.15
+Last Accuracy: 0.958625
+
+Valid error: 0.6686101967282594
+
+
+0.2
+Last Accuracy: 0.92975
+
+Valid error: 0.47572402928769586
+
+0.3
+Last Accuracy: 0.80475
+
+Valid error: 0.14692789238691323
+
+
+
+
+
+###############################################
+
+
+
+0.1 Dropout:4
+
+Last Accuracy: 0.964875
+
+Valid error: 0.7434929121695459
+
+0.01
+Last Accuracy: 0.997375
+
+Valid error: 1.7872129373515488
+
+0.05
+Last Accuracy: 0.989375
+
+Valid error: 1.2196712281939108
+
+0.075
+Last Accuracy: 0.979125
+
+Valid error: 0.9335712859379128
+
+0.075
+Last Accuracy: 0.977875
+
+Valid error: 0.9199132162425667
+
+0.0875
+Last Accuracy: 0.9745
+
+Valid error: 0.8345288848131895
+
+0.09
+Last Accuracy: 0.97275
+
+Valid error: 0.7813724632002412
+
+0.08
+Last Accuracy: 0.9755
+
+Valid error: 0.8299306608997286
+
+0.07
+Last Accuracy: 0.983375
+
+Valid error: 0.9388236316475086
+
+0.11
+Last Accuracy: 0.95975
+
+Valid error: 0.6284805089086294
+
+0.12
+Last Accuracy: 0.932625
+
+Valid error: 0.4946849365085363
+
+0.115
+Last Accuracy: 0.949375
+
+Valid error: 0.6464159535840153
+
+0.1125
+Last Accuracy: 0.9565
+
+Valid error: 0.6262523842714728
+
+
+
+
+
+
+
+###############################################
+0.1 Dropout:5
+Last Accuracy: 0.933375
+
+Valid error: 0.5889106639847159
+
+0.075   adam
+Last Accuracy: 0.965625
+
+Valid error: 0.775052360150963
+
+0.075 adamax
+Last Accuracy: 0.935
+
+Valid error: 0.4812037698477506
+
+0.075 nadam
+Last Accuracy: 0.96625
+
+Valid error: 0.8759902194552124
+
+
+0.05
+Last Accuracy: 0.9765
+
+Valid error: 0.9048965296233072
+
+
+
+
+
+
+
+
+
+
+    def get_model(self):
+
+        model = Sequential()
+        nDropout = 0.1
+
+        model.add(Conv2D(32, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+
+        model.add(Conv2D(64, (2, 2), activation='relu'))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+
+        model.add(Flatten())
+        model.add(Dense(1024, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+        model.add(Dense(2))
+        model.add(Activation('softmax'))
+        return model
+
+
+Last Accuracy: 0.964875
+
+Valid error: 0.7434929121695459
+
+    def get_model(self):
+
+        model = Sequential()
+        nDropout = 0.4
+
+        model.add(Conv2D(32, (2, 2), padding='same', input_shape=self.x_train.shape[1:], activation='relu'))
+        model.add(Dropout(nDropout))
+
+
+        model.add(Conv2D(64, (2, 2), activation='relu'))
+        model.add(Dropout(nDropout))
+
+
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Dropout(nDropout))
+
+
+        model.add(Flatten())
+        model.add(Dense(1024, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dropout(nDropout))
+
+        model.add(Dense(2))
+        model.add(Activation('softmax'))
+        return model
+
+Last Accuracy: 0.947
+
+Valid error: 0.5591774241849781
+
