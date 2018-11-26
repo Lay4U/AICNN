@@ -184,7 +184,7 @@ class ModelMgr():
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
-		model.add(Dropout(nDropout))
+	model.add(Dropout(nDropout))
 
         model.add(Dense(2))
         model.add(Activation('softmax'))
