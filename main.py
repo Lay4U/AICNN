@@ -31,6 +31,7 @@ config.gpu_options.allow_growth = True
 
 session = tf.Session(config=config)
 
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 seed(0)
 random.seed(1)
