@@ -1,3 +1,4 @@
+from tensorflow import keras
 from numpy.random import seed
 import random
 from tensorflow import set_random_seed
@@ -127,7 +128,22 @@ class ModelMgr():
         # 최적화 알고리즘 선택 [sgd, rmsprop, adagrad, adam 등]
         # hyper['optimizer'] = optimizers.sgd(lr=hyper['learning_rate'])  # default: SGD
         # hyper['optimizer'] = optimizers.rmsprop(lr=0.0001, decay=1e-6)
-        hyper['optimizer'] = optimizers.adam()
+
+
+
+        #deep learning libraries generally use the default parameters recommended by the paper.
+        #Keras: lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0.
+        # adam parameter
+        # def __init__(self, lr=0.001, beta_1=0.9, beta_2=0.999,
+        #              epsilon=None, decay=0., amsgrad=False, **kwargs):
+        #lr: float >= 0. Learning rate.
+        # beta_1: float, 0 < beta < 1. Generally close to 1.
+        # beta_2: float, 0 < beta < 1. Generally close to 1.
+        # epsilon: float >= 0. Fuzz factor. If None, defaults to K.epsilon().
+        # decay: float >= 0. Learning rate decay over each update.
+        # amsgrad: boolean. Whether to apply the AMSGrad variant of this algorithm from the paper "On the Convergence of Adam and Beyond".
+
+        hyper['optimizer'] = optimizers.adam(epsilon=1e-04, decay=0.001)
         result = 'batch_size: {}\nepochs: {}\nlearning_rage: {}\noptimizer: {}\n'.format(hyper['batch_size'],
                                                                                          hyper['epochs'], \
                                                                                          hyper['learning_rate'],
@@ -149,14 +165,11 @@ class ModelMgr():
         model.add(Dropout(nDropout))
 
 
-
-
         model.add(Conv2D(64, (2, 2), activation='relu'))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
-
 
 
         model.add(MaxPooling2D(pool_size=(2, 2)))
@@ -166,15 +179,12 @@ class ModelMgr():
         model.add(Dropout(nDropout))
 
 
-
         model.add(Flatten())
-        model.add(Dense(1024, activation='relu', kernel_initializer='glorot_uniform'))
+        model.add(Dense(8192, activation='relu', kernel_initializer='glorot_uniform'))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
-        model.add(Dropout(nDropout))
-
-
+		model.add(Dropout(nDropout))
 
         model.add(Dense(2))
         model.add(Activation('softmax'))
@@ -246,7 +256,7 @@ if __name__ == '__main__':
     modelMgr = ModelMgr()
     if trained_model is None:
         modelMgr.train()
-        # modelMgr.save_model('./trained_model.h5')  # 모델 저장 (이름이 같으면 덮어씀)
+        modelMgr.save_model('./trained_model.h5')  # 모델 저장 (이름이 같으면 덮어씀)
         modelMgr.test()
         modelMgr.draw_history('./result.png')  # 학습 결과 그래프 저장 (./result.png)
     else:
