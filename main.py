@@ -27,7 +27,7 @@ freq = 440  # Hz
 config = tf.ConfigProto()
 
 config.gpu_options.allow_growth = True
-#config.gpu_options.per_process_gpu_memory_fraction = 0.7
+# config.gpu_options.per_process_gpu_memory_fraction = 0.7
 
 session = tf.Session(config=config)
 
@@ -80,18 +80,17 @@ class ModelMgr():
 
         # 모델 학습
         a, b, c, d = self.x_train.shape
-        train_x = self.x_train.reshape((a,b*c))
+        train_x = self.x_train.reshape((a, b * c))
         e, f = self.y_train.shape
-        train_y = self.y_train.reshape((e,f))
-
+        train_y = self.y_train.reshape((e, f))
 
         # rf = RandomForestRegressor()
         # rf = rf.fit(train_x, train_y)
 
-        #https://tykimos.github.io/2017/07/09/Early_Stopping/
+        # https://tykimos.github.io/2017/07/09/Early_Stopping/
         from keras.callbacks import EarlyStopping
 
-        early_stopping = EarlyStopping(monitor='val_loss',verbose=2, patience =5)
+        early_stopping = EarlyStopping(monitor='val_loss', verbose=2, patience=5)
         # rf = RandomForestRegressor()
         # rf.fit(train_x, train_y)
         history = model.fit(np.array(self.x_train), np.array(self.y_train),
@@ -105,7 +104,6 @@ class ModelMgr():
         history.history['hypers'] = hp
         self.model = model
         self.history = history
-
 
         # rf = KerasRegressor(build_fn=self.get_model)
         # rf = rf.fit(self.x_train, self.y_train,
@@ -129,14 +127,12 @@ class ModelMgr():
         # hyper['optimizer'] = optimizers.sgd(lr=hyper['learning_rate'])  # default: SGD
         # hyper['optimizer'] = optimizers.rmsprop(lr=0.0001, decay=1e-6)
 
-
-
-        #deep learning libraries generally use the default parameters recommended by the paper.
-        #Keras: lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0.
+        # deep learning libraries generally use the default parameters recommended by the paper.
+        # Keras: lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0.
         # adam parameter
         # def __init__(self, lr=0.001, beta_1=0.9, beta_2=0.999,
         #              epsilon=None, decay=0., amsgrad=False, **kwargs):
-        #lr: float >= 0. Learning rate.
+        # lr: float >= 0. Learning rate.
         # beta_1: float, 0 < beta < 1. Generally close to 1.
         # beta_2: float, 0 < beta < 1. Generally close to 1.
         # epsilon: float >= 0. Fuzz factor. If None, defaults to K.epsilon().
@@ -163,33 +159,31 @@ class ModelMgr():
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
-
+        model.add(Dropout(nDropout))
 
         model.add(Conv2D(64, (2, 2), activation='relu'))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
-
+        model.add(Dropout(nDropout))
 
         model.add(MaxPooling2D(pool_size=(2, 2)))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
-        model.add(Dropout(nDropout))
-
 
         model.add(Flatten())
         model.add(Dense(8192, activation='relu', kernel_initializer='glorot_uniform'))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
         model.add(Dropout(nDropout))
-		model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
+        model.add(Dropout(nDropout))
 
         model.add(Dense(2))
         model.add(Activation('softmax'))
         return model
-
 
     def test(self, model=None):
         print('\ntest model')
